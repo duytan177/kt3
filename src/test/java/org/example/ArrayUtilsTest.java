@@ -1,38 +1,39 @@
 package org.example;
+
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class ArrayUtilsTest {
 
-    // Test Case for Path 1: No values in range, expects -999
+    // Test Case 1: Array contains only the sentinel value, expects -999
     @Test
-    public void testNoValidNumbers() {
+    public void testNoValuesInArray() {
         int[] values = {-999};
-        assertEquals(-999, ArrayUtils.average(values, 1, 10));
+        assertEquals("Expected result when array contains only -999", -999, ArrayUtils.average(values, 1, 10));
     }
 
-    // Test Case for Path 2: Some values processed, but none within range
+    // Test Case 2: Array contains values outside the specified range, expects -999
     @Test
-    public void testValuesOutsideRange() {
+    public void testValuesAllOutsideRange() {
         int[] values = {20, 30, 40, -999};
-        assertEquals(-999, ArrayUtils.average(values, 1, 10));
+        assertEquals("Expected result when all values are outside range [1, 10]", -999, ArrayUtils.average(values, 1, 10));
     }
 
-    // Test Case for Path 3: Valid values in range, calculates average
+    // Test Case 3: Array contains valid values within range, calculates average
     @Test
-    public void testValidNumbersInRange() {
+    public void testValuesWithinRange() {
         int[] values = {5, 7, 8, -999};
-        assertEquals(6, ArrayUtils.average(values, 5, 10));
+        assertEquals("Expected average of values within range [5, 10]", 6, ArrayUtils.average(values, 5, 10));
     }
 
-    // Test Case for Path 4: Loop termination at 100th element
+    // Test Case 4: Array contains exactly 100 valid values, tests loop termination
     @Test
-    public void testLoopTerminationAtMaxInputNumber() {
+    public void testLoopTerminationAt100Elements() {
         int[] values = new int[101];
         for (int i = 0; i < 100; i++) {
-            values[i] = 5; // Within range
+            values[i] = 5; 
         }
         values[100] = -999;
-        assertEquals(5, ArrayUtils.average(values, 1, 10));
+        assertEquals("Expected average when processing first 100 elements", 5, ArrayUtils.average(values, 1, 10));
     }
 }
